@@ -1,10 +1,14 @@
 import express from "express";
 import sql from "./database/db";
 import fs from "fs";
+import cors from "cors";
 import { insertProperty, getProperty } from "./controllers/propertyController";
 import { KEYS } from "./config/keys";
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send({ message: "Hello World" });
