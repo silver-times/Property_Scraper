@@ -34,7 +34,7 @@ export const insertProperty = async (property: PropertyType) => {
   }
 };
 
-export const getProperties = async () => {
+export const getProperty = async () => {
   const properties: PropertyType[] = await sql`
     select * from properties
   `;

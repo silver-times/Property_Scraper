@@ -1,13 +1,23 @@
 import express from "express";
 import sql from "./database/db";
 import fs from "fs";
-import { insertProperty } from "./controllers/propertyController";
+import { insertProperty, getProperty } from "./controllers/propertyController";
 import { KEYS } from "./config/keys";
 
 const app = express();
 
 app.get("/", (req, res) => {
   res.send({ message: "Hello World" });
+});
+
+app.get("/api/property", async (req, res) => {
+  try {
+    const properties = await getProperty();
+    res.json(properties);
+  } catch (error) {
+    console.error("Error getting properties:", error);
+    res.status(500).json({ error: "Error getting properties" });
+  }
 });
 
 app.post("/api/property", async (req, res) => {
