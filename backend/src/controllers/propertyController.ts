@@ -1,27 +1,37 @@
 import sql from "../database/db";
-import type { PropertyType } from "../types";
+import type { PropertyType } from "../types/types";
+
+const createPropertiesTable = async () => {
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS properties (
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        price TEXT,
+        locality TEXT,
+        images TEXT[]  -- Use an array to store image URLs
+      )`;
+  } catch (error) {
+    console.error("Error creating 'properties' table:", error);
+  }
+};
 
 export const insertProperty = async (property: PropertyType) => {
-  const { title, price, locality } = property;
+  const { title, price, locality, images } = property;
 
-  const insertedProperty = await sql`
-      INSERT INTO properties (title, price, locality)
-      VALUES (${title}, ${price}, ${locality})
-      RETURNING id
-    `;
+  await createPropertiesTable();
 
-  const propertyId = insertedProperty[0].id;
+  try {
+    const insertedProperty = await sql`
+        INSERT INTO properties (title, price, locality, images)
+        VALUES (${title}, ${price}, ${locality}, ${images})
+        RETURNING id
+      `;
 
-  if (property.images && property.images.length > 0) {
-    for (const imageURL of property.images) {
-      await sql`
-          INSERT INTO property_images (property_id, image_url)
-          VALUES (${propertyId}, ${imageURL})
-        `;
-    }
+    return insertedProperty;
+  } catch (error) {
+    console.error("Error inserting property:", error);
   }
-
-  return insertedProperty;
 };
 
 export const getProperties = async () => {
