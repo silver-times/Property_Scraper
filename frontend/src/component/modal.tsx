@@ -1,10 +1,4 @@
-type ModalType = {
-  title: string;
-  locality: string;
-  isOpen: boolean;
-  closeModal: () => void;
-  images: string[];
-};
+import type { ModalType } from "../types/types";
 
 const Modal = ({ title, locality, isOpen, closeModal, images }: ModalType) => {
   return (
