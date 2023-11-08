@@ -5,10 +5,6 @@ import {
 } from "../database/db";
 import fs from "fs";
 
-export const getHi = (req: Request, res: Response) => {
-  res.send("Hi from propertyController");
-};
-
 export const getProperties = async (req: Request, res: Response) => {
   try {
     const page = parseInt(req.query.page as string);
