@@ -1,47 +1,38 @@
-import sql from "../database/db";
-import type { PropertyType } from "../types/types";
+import { Request, Response } from "express";
+import {
+  insertPropertyIntoDatabase,
+  getPropertyFromDatabase,
+} from "../database/db";
+import fs from "fs";
 
-const createPropertiesTable = async () => {
+export const getHi = (req: Request, res: Response) => {
+  res.send("Hi from propertyController");
+};
+
+export const getProperties = async (req: Request, res: Response) => {
   try {
-    await sql`
-      CREATE TABLE IF NOT EXISTS properties (
-        id SERIAL PRIMARY KEY,
-        title TEXT,
-        price TEXT,
-        locality TEXT,
-        images TEXT[]  -- Use an array to store image URLs
-      )`;
+    const page = parseInt(req.query.page as string);
+    const properties = await getPropertyFromDatabase(page);
+
+    res.json(properties);
   } catch (error) {
-    console.error("Error creating 'properties' table:", error);
+    console.error("Error getting properties:", error);
+    res.status(500).json({ error: "Error getting properties" });
   }
 };
 
-export const insertProperty = async (property: PropertyType) => {
-  const { title, price, locality, images } = property;
-
-  await createPropertiesTable();
-
+export const insertProperties = async (req: Request, res: Response) => {
   try {
-    const insertedProperty = await sql`
-        INSERT INTO properties (title, price, locality, images)
-        VALUES (${title}, ${price}, ${locality}, ${images})
-        RETURNING id
-      `;
+    const rawData = fs.readFileSync("siteData.json");
+    const siteData = JSON.parse(rawData.toString());
 
-    return insertedProperty;
+    for (const property of siteData) {
+      console.log("Inserting property:", property);
+      await insertPropertyIntoDatabase(property);
+    }
+    res.json({ message: "Site data imported successfully" });
   } catch (error) {
-    console.error("Error inserting property:", error);
+    console.error("Error importing site data:", error);
+    res.status(500).json({ error: "Site data import failed" });
   }
-};
-
-export const getProperty = async (page: number) => {
-  const limit = 12;
-  const offset = page * limit;
-
-  const properties: PropertyType[] = await sql`
-    select * from properties
-    LIMIT ${limit} OFFSET ${offset}
-  `;
-
-  return properties;
 };
