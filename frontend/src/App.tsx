@@ -32,7 +32,7 @@ export const App = () => {
 
   return (
     <>
-      <div className="container mx-auto flex items-center justify-center pt-20 gap-20">
+      <div className="container mx-auto flex items-center justify-center pt-20 gap-20 h-full w-full">
         <h1 className="text-4xl text-center ">Properties</h1>
         <div className="join flex items-center justify-center">
           <button
@@ -54,12 +54,10 @@ export const App = () => {
           </button>
         </div>
       </div>
-
-      <div className="p-4 mx-auto flex flex-wrap items-center justify-center gap-20">
+      <div className="p-4 mx-auto flex flex-wrap items-center justify-center gap-10">
         {properties.length > 0 ? (
           properties.map((property: PropertyType) => (
             <div key={property.id}>
-              <h1 className="text-2xl">{JSON.stringify(property.id)}</h1>
               <Property {...property} />
             </div>
           ))
