@@ -5,17 +5,19 @@ export const getSiteData = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto("https://www.sreality.cz/en/search/for-sale/apartments");
-
-    // Wait for the selector that indicates the presence of listings on each page
-    const listingsSelector = "body .page-layout .dir-property-list";
-    await page.waitForSelector(listingsSelector);
 
     let allData: any = [];
     let pageNumber = 0;
 
     while (pageNumber < 26) {
       pageNumber++;
+      console.log(`Scraping page ${pageNumber}`);
+
+      await page.goto(
+        `https://www.sreality.cz/en/search/for-sale/apartments?page=${pageNumber}`
+      );
+      const listingsSelector = "body .page-layout .dir-property-list";
+      await page.waitForSelector(listingsSelector);
 
       // Scrape data from the current page
       const images = await page.evaluate(() => {
@@ -54,23 +56,12 @@ export const getSiteData = async () => {
         )
       );
 
-      // Combine and add the data to the result array
       allData = allData.concat(
         images.map((imageGroup, index) => ({
           images: imageGroup,
           ...flats[index],
         }))
       );
-
-      // Check if there's a "Next" button for pagination
-      const nextButton = await page.$(".btn-paging");
-      if (nextButton) {
-        console.log("Navigating to next page...");
-        await nextButton.click();
-        await page.waitForSelector(listingsSelector);
-      } else {
-        break;
-      }
     }
 
     const jsonData = JSON.stringify(allData, null, 2);
