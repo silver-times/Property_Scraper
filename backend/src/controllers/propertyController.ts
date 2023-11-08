@@ -34,9 +34,14 @@ export const insertProperty = async (property: PropertyType) => {
   }
 };
 
-export const getProperty = async () => {
+export const getProperty = async (page: number) => {
+  const limit = 12;
+  const offset = page * limit;
+
   const properties: PropertyType[] = await sql`
     select * from properties
+    LIMIT ${limit} OFFSET ${offset}
   `;
+
   return properties;
 };

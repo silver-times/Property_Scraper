@@ -16,7 +16,9 @@ app.get("/", (req, res) => {
 
 app.get("/api/property", async (req, res) => {
   try {
-    const properties = await getProperty();
+    const page = parseInt(req.query.page as string);
+    const properties = await getProperty(page);
+
     res.json(properties);
   } catch (error) {
     console.error("Error getting properties:", error);
