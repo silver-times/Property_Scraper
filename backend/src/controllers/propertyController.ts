@@ -3,7 +3,7 @@ import {
   insertPropertyIntoDatabase,
   getPropertyFromDatabase,
 } from "../database/db";
-import fs from "fs";
+import fs from "fs/promises";
 
 export const getProperties = async (req: Request, res: Response) => {
   try {
@@ -19,11 +19,11 @@ export const getProperties = async (req: Request, res: Response) => {
 
 export const insertProperties = async (req: Request, res: Response) => {
   try {
-    const rawData = fs.readFileSync("siteData.json");
+    const rawData = await fs.readFile("./src/scraper/siteData.json");
+
     const siteData = JSON.parse(rawData.toString());
 
     for (const property of siteData) {
-      console.log("Inserting property:", property);
       await insertPropertyIntoDatabase(property);
     }
     res.json({ message: "Site data imported successfully" });
