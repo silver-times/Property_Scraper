@@ -13,7 +13,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=postgres://scraper:scraper@localhost:5432/scraper
+      - DATABASE_URL=postgres://scraper:scraper@db:5432/scraper
     depends_on:
       - db
 
