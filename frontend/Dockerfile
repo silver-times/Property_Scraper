@@ -15,6 +15,4 @@ COPY . .
 
 # RUN pnpm run build
 
-EXPOSE 8080
-
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "run", "dev", "--", "--host"]
