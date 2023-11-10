@@ -9,14 +9,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/users", propertyRouter);
+app.get("/", (req, res) => {
+  res.send("Hello World !!!");
+});
+
+app.use("/api/property", propertyRouter);
 
 app.listen(KEYS.PORT, () => {
   console.log(`Server running on port ${KEYS.PORT}`);
   try {
     sql`SELECT 1 + 1`;
-    console.log("Database connected");
+    console.log("Database connected ✅");
   } catch (error) {
+    console.log("Database connection failed ❌");
     console.log(error);
   }
 });

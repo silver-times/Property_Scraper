@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgres://scraper:scraper@localhost:5432/scraper
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: scraper
+      POSTGRES_PASSWORD: scraper
+      POSTGRES_DB: scraper
+    volumes:
+      - db-postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  db-postgres:

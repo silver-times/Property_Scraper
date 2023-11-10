@@ -35,6 +35,7 @@ export const App = () => {
 
   return (
     <>
+      {/* {JSON.stringify(properties)} */}
       <div className="container mx-auto py-24 gap-20 h-full w-full">
         <h1 className="text-4xl sm:text-8xl text-center font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-red-500">
           BuyProperties.cz
