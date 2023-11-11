@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { PropertyType } from "../types/types";
-import { ModalView } from "./Modal";
+import { ModalView } from "./ModalView";
 
 export const Property: React.FC<PropertyType> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
