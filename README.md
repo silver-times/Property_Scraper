@@ -6,10 +6,10 @@ Discover your ideal property with BuyProperties.cz, your ultimate real estate ap
 
 ## Installation
 
-To run the project, simply clone it and run the following command:
+Simply clone it and run the following command:
 
 ```bash
-  docker compose up
+  cd scraper_rs && cat backend/.env.local > backend/.env && docker-compose up
 ```
 
 ## Tech Stack
