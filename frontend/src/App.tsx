@@ -21,21 +21,17 @@ export const App = () => {
   useEffect(() => {
     const checkFirstTime = async () => {
       let isFirstTime = true;
-
       if (isFirstTime) {
         await api.populateDatabase();
         isFirstTime = false;
       }
-
       await fetchData(pageNumber);
     };
-
     checkFirstTime();
   }, [pageNumber]);
 
   return (
     <>
-      {/* {JSON.stringify(properties)} */}
       <div className="container mx-auto py-24 gap-20 h-full w-full">
         <h1 className="text-4xl sm:text-8xl text-center font-extrabold text-gradient bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-red-500">
           BuyProperties.cz
@@ -69,6 +65,9 @@ export const App = () => {
             </button>
           </div>
         )}
+        <h1 className="text-2xl font-semibold text-center text-gray-400">
+          Crafted with ❤️ by Rajat for Luxonis
+        </h1>
       </div>
     </>
   );
