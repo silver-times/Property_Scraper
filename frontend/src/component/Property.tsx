@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import type { PropertyType } from "../types/types";
-import Modal from "./Modal";
+import { ModalView } from "./Modal";
 
-const Property: React.FC<PropertyType> = (props) => {
+export const Property: React.FC<PropertyType> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -38,7 +38,7 @@ const Property: React.FC<PropertyType> = (props) => {
           </div>
         </div>
       </div>
-      <Modal
+      <ModalView
         title={props.title}
         locality={props.locality}
         isOpen={isModalOpen}
@@ -48,5 +48,3 @@ const Property: React.FC<PropertyType> = (props) => {
     </div>
   );
 };
-
-export default Property;

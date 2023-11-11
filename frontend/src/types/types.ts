@@ -6,7 +6,7 @@ export type PropertyType = {
   images: string[];
 };
 
-export type ModalType = {
+export type ModalViewType = {
   title: string;
   locality: string;
   isOpen: boolean;

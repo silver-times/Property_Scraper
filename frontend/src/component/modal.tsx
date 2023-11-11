@@ -1,6 +1,12 @@
-import type { ModalType } from "../types/types";
+import type { ModalViewType } from "../types/types";
 
-const Modal = ({ title, locality, isOpen, closeModal, images }: ModalType) => {
+export const ModalView: React.FC<ModalViewType> = ({
+  title,
+  locality,
+  isOpen,
+  closeModal,
+  images,
+}: ModalViewType) => {
   return (
     <dialog
       open={isOpen}
@@ -20,5 +26,3 @@ const Modal = ({ title, locality, isOpen, closeModal, images }: ModalType) => {
     </dialog>
   );
 };
-
-export default Modal;

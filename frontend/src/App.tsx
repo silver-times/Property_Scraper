@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Property from "./component/Property";
+import { Property } from "./component/Property";
 import * as api from "./api/api";
 import type { PropertyType } from "./types/types";
 
