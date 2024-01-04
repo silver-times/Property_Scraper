@@ -6,7 +6,7 @@ Discover your ideal property with BuyProperties.cz, your ultimate real estate ap
 
 ## Installation
 
-Simply clone it and run the following command:
+Simply clone the project, run Docker in background and run the following command:
 
 ```bash
   cd Property_Scraper && cat backend/.env.local > backend/.env && docker-compose up
