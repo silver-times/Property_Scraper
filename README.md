@@ -9,7 +9,7 @@ Discover your ideal property with BuyProperties.cz, your ultimate real estate ap
 Simply clone it and run the following command:
 
 ```bash
-  cd scraper_rs && cat backend/.env.local > backend/.env && docker-compose up
+  cd Property_Scraper && cat backend/.env.local > backend/.env && docker-compose up
 ```
 
 ## Tech Stack

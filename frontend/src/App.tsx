@@ -65,9 +65,6 @@ export const App = () => {
             </button>
           </div>
         )}
-        <h1 className="text-2xl font-semibold text-center text-gray-400">
-          Crafted with ❤️ by Rajat for Luxonis
-        </h1>
       </div>
     </>
   );
